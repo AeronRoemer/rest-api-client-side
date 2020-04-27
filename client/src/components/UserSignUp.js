@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+
 export default class UserSignUp extends Component {
   state = {
     name: '',
@@ -72,10 +73,38 @@ export default class UserSignUp extends Component {
   }
 
   submit = () => {
+    const {context} = this.props;
+
+    const {
+      name,
+      username,
+      password,
+    } = this.state; 
+  
+    // New user information
+    const user = {
+      name,
+      username,
+      password,
+    };
+
+   //calls createUser which was passed via context
+   //passes 'user' data to API to 'POST' a user
+    context.data.createUser(user)
+      .then( errors => {
+        if (errors.length) {
+          this.setState({ errors });
+        } else {
+          console.log(`${username} is successfully signed up and authenticated!`);
+        }
+      }).catch( err => { 
+        console.log(err); // log error
+        this.props.history.push('/error'); // push 'error' route to history stack - brings up in browser 
+      })
 
   }
 
   cancel = () => {
-
+      this.props.history.push('/');
   }
 }
