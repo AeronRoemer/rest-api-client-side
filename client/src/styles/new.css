@@ -12,7 +12,7 @@
 /* styles the signed in user's name in the header */
 .header nav span {
   color: #fff;
-  margin-left: 20px;
+  margin: 20px;
 }
 
 /* styles the validation errors */

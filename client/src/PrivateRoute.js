@@ -8,7 +8,16 @@ export default ({ component: Component, ...rest }) => {
       { context => (
         <Route
           {...rest}
-          render={}
+          render={props => context.authenticatedUser ? ( 
+              <Component {...props} /> //if authenticatedUser is found in context, render props - in this case: 'you are authenitcated component'
+            ) : (
+              <Redirect to={{
+                  pathname: '/signin',// redirect to signin
+                  state: { from: props.location }, //save the page they tried to access
+                }} /> 
+            )
+
+}
         />
       )}
     </Consumer>
